@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 
 interface MarkerProps {
   map: any;
@@ -7,7 +7,7 @@ interface MarkerProps {
 }
 
 const Markers = ({ map, storeDatas, setCurrentStore }: MarkerProps) => {
-  const loadKakaoMarkers = () => {
+  const loadKakaoMarkers = useCallback(() => {
     if (map) {
       storeDatas?.map((store) => {
         var imageSrc = store?.bizcnd_code_nm
@@ -60,14 +60,17 @@ const Markers = ({ map, storeDatas, setCurrentStore }: MarkerProps) => {
         // 선택한 가게 저장
         window.kakao.maps.event.addListener(marker, "click", function () {
           setCurrentStore(store);
+          // let newMarker = new window.kakao.maps.Marker({
+          //
+          // })
         });
       });
     }
-  };
+  }, [map, setCurrentStore, storeDatas]);
 
   useEffect(() => {
     loadKakaoMarkers();
-  }, [map]);
+  }, [loadKakaoMarkers, map]);
   return <></>;
 };
 
