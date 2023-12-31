@@ -28,41 +28,43 @@ const StoreListPage = () => {
   return (
     <div className="px-4 md:max-w-4xl mx-auto py-8">
       <ul role="list" className="divide-y divide-gray-100">
-        {isLoading
-          ? "loading"
-          : stores?.map((store, index) => (
-              <li className="flex justify-between gap-x-6 py-5" key={index}>
-                <div className="flex gap-x-4">
-                  <Image
-                    src={
-                      store?.categories
-                        ? `/images/markers/${store?.categories}.png`
-                        : "/images/marker/default.png"
-                    }
-                    width={48}
-                    height={48}
-                    alt="아이콘"
-                  />
-                  <div>
-                    <div className="text-sm font-semibold leading-9 text-gray-900">
-                      {store?.name}
-                    </div>
-                    <div className="mt-1 text-xs truncate font-semibold leading-5 text-gray-500">
-                      {store?.storeType}
-                    </div>
-                  </div>
-                </div>
-                <div className="hidden sm:flex sm:flex-col sm:items-end">
+        {isLoading ? (
+          <Loading />
+        ) : (
+          stores?.map((store, index) => (
+            <li className="flex justify-between gap-x-6 py-5" key={index}>
+              <div className="flex gap-x-4">
+                <Image
+                  src={
+                    store?.categories
+                      ? `/images/markers/${store?.categories}.png`
+                      : "/images/marker/default.png"
+                  }
+                  width={48}
+                  height={48}
+                  alt="아이콘"
+                />
+                <div>
                   <div className="text-sm font-semibold leading-9 text-gray-900">
-                    {store?.address}
+                    {store?.name}
                   </div>
                   <div className="mt-1 text-xs truncate font-semibold leading-5 text-gray-500">
-                    {store?.phone || "번호없음"}|{store?.foodCertifyName}|{" "}
-                    {store?.categories}
+                    {store?.storeType}
                   </div>
                 </div>
-              </li>
-            ))}
+              </div>
+              <div className="hidden sm:flex sm:flex-col sm:items-end">
+                <div className="text-sm font-semibold leading-9 text-gray-900">
+                  {store?.address}
+                </div>
+                <div className="mt-1 text-xs truncate font-semibold leading-5 text-gray-500">
+                  {store?.phone || "번호없음"}|{store?.foodCertifyName}|{" "}
+                  {store?.categories}
+                </div>
+              </div>
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );
